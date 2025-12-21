@@ -27,7 +27,7 @@ function transformSemestersToArchiveItems(semesters: SemesterForArchive[]): Arch
 	return semesters.map((semester) => ({
 		id: semester.id.toString(),
 		semesterTitle: semester.name,
-		semesterDate: `(${semester.startYear}/${semester.endYear})`,
+		semesterDate: `${semester.startYear} — ${semester.endYear}`,
 		children: semester.mataKuliahs.map(transformMataKuliahToArchiveItem)
 	}));
 }
