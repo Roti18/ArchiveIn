@@ -1,3 +1,4 @@
+import { relations } from 'drizzle-orm';
 import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
 
 /* =========================
@@ -45,6 +46,17 @@ export const mataKuliah = sqliteTable('mata_kuliah', {
 	dosen: text('dosen').notNull(), // Nama dosen
 	jam: text('jam').notNull() // "Senin 13:00–15:30"
 });
+
+export const semesterRelations = relations(semester, ({ many }) => ({
+	mataKuliahs: many(mataKuliah)
+}));
+
+export const mataKuliahRelations = relations(mataKuliah, ({ one }) => ({
+	semester: one(semester, {
+		fields: [mataKuliah.semesterId],
+		references: [semester.id]
+	})
+}));
 
 /* =========================
    ACADEMIC ITEM (TUGAS / UTS / UAS / MATERI / TA)
@@ -153,3 +165,14 @@ export const galleryItem = sqliteTable('gallery_item', {
 	imageUrl: text('image_url').notNull(),
 	yearTaken: integer('year_taken').notNull()
 });
+
+export const galleryGroupRelations = relations(galleryGroup, ({ many }) => ({
+	items: many(galleryItem)
+}));
+
+export const galleryItemRelations = relations(galleryItem, ({ one }) => ({
+	group: one(galleryGroup, {
+		fields: [galleryItem.groupId],
+		references: [galleryGroup.id]
+	})
+}));
