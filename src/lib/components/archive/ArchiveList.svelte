@@ -44,14 +44,16 @@
 						{item.title}
 
 						{#if item.semesterTitle}
-							<div class="mt-1 text-xs tracking-widest text-gray-500">
+							<div class="mt-1 text-base tracking-widest text-gray-400">
 								{item.semesterTitle}
 							</div>
 						{/if}
 
-						{#if item.semesterDate}
-							<div class="mt-1 text-xs tracking-widest text-gray-600">
-								{item.semesterDate}
+						{#if item.semesterStartYear && item.semesterEndYear}
+							<div class="mt-1 flex gap-1 text-sm tracking-widest text-gray-500">
+								<span>{item.semesterStartYear}</span>
+								<span>—</span>
+								<span>{item.semesterEndYear}</span>
 							</div>
 						{/if}
 					</div>

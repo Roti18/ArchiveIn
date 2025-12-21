@@ -2,7 +2,8 @@ export interface ArchiveItem {
 	id: string;
 	title?: string;
 	semesterTitle?: string;
-	semesterDate?: string;
+	semesterStartYear?: number;
+	semesterEndYear?: number;
 	children?: ArchiveItem[];
 	description?: string;
 	documentation?: DocumentationItem[];
