@@ -11,7 +11,7 @@ export interface PhotoData {
 	src: string;
 	title: string;
 	desc: string;
-	date?: string; // Replaced yearTaken with date
+	date?: string;
 }
 
 /* =========================
@@ -70,7 +70,7 @@ export function selectItem(item: ArchiveItem) {
 
 	// CASE 2: ITEM DETAIL
 	selectedDetail.set(item);
-	currentItems.set([item]); // 🔑 BIAR UI BERUBAH
+	currentItems.set([item]);
 	currentPage.set('detail');
 }
 

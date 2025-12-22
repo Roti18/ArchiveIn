@@ -9,7 +9,7 @@ export async function getPraktikumByMatkul(mataKuliahId: number): Promise<Prakti
 		with: {
 			praktikumItems: {
 				with: {
-					blocks: true // Added to fetch nested blocks
+					blocks: true
 				}
 			}
 		}

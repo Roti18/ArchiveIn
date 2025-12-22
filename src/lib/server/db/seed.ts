@@ -14,7 +14,7 @@ import {
 	galleryGroup,
 	galleryItem
 } from './schema';
-import type { InferSelectModel } from 'drizzle-orm'; // Added import
+import type { InferSelectModel } from 'drizzle-orm';
 
 async function seedUsers() {
 	console.log('  Seeding users...');

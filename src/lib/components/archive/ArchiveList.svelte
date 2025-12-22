@@ -11,7 +11,6 @@
 </script>
 
 <div in:fade={{ duration: 600, easing: quintOut }} class="max-md:w-full">
-	<!-- BACK + BREADCRUMB -->
 	{#if $navigationPath.length > 0}
 		<div class="mb-4">
 			<button
@@ -29,7 +28,6 @@
 		</div>
 	{/if}
 
-	<!-- LIST -->
 	<div class="flex flex-col">
 		{#each $currentItems as item (item.id)}
 			<button
@@ -60,7 +58,6 @@
 										<span>{item.dosen}</span>
 									</div>
 								{/if}
-								<span>|</span>
 								{#if item.jam}
 									<div class="flex items-center gap-1">
 										<span>{item.jam}</span>

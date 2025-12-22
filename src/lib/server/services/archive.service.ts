@@ -35,7 +35,7 @@ export async function getArchiveOverview(): Promise<SemesterForArchive[]> {
 							}
 						}
 					},
-					aspraks: true // Added
+					aspraks: true
 				}
 			}
 		}
@@ -52,7 +52,7 @@ function transformLeafNodeToArchiveItem(item: AcademicItemType | PraktikumItemTy
 			.map((b) => ({
 				image: b.imageUrl!,
 				caption: b.caption || '',
-				subtitle: '' // Subtitle is not available in the block schema
+				subtitle: ''
 			})) || [];
 
 	return {
@@ -128,9 +128,9 @@ function transformMataKuliahToArchiveItem(mk: MataKuliahForArchive): ArchiveItem
 		id: mk.id.toString(),
 		title: mk.name,
 		children: children,
-		dosen: mk.dosen, // Added
-		jam: mk.jam, // Added
-		aspraks: mk.aspraks // Added
+		dosen: mk.dosen,
+		jam: mk.jam,
+		aspraks: mk.aspraks
 	};
 }
 

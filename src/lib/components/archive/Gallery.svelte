@@ -11,7 +11,6 @@
 <div in:fade={{ duration: 600, easing: quintOut }} class="space-y-16">
 	{#each groups as group}
 		<section class="space-y-6">
-			<!-- GROUP HEADER -->
 			<div class="space-y-1">
 				<h2 class="text-sm tracking-widest text-gray-300 uppercase">
 					{group.title}
@@ -21,7 +20,6 @@
 				{/if}
 			</div>
 
-			<!-- GRID PER GROUP -->
 			<div class="grid grid-cols-3 gap-px max-md:grid-cols-3">
 				{#each group.items as item}
 					<button
@@ -30,7 +28,7 @@
 								src: item.imageUrl,
 								title: item.title,
 								desc: group.title,
-                                date: item.date // Replaced yearTaken with date
+								date: item.date
 							})}
 						class="group aspect-square overflow-hidden border-[0.5px] border-gray-900"
 					>
