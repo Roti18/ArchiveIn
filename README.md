@@ -46,66 +46,48 @@ This project is currently in active development. Features are being continuously
 
 -
 
-## Google Drive Configuration (Free)
+## Google Drive Configuration (OAuth2)
 
-This project uses Google Drive as an archival storage service for original high-quality images. It utilizes a **Service Account** to securely access a specific folder in your personal Google Drive. This method is **100% Free** (up to your personal Drive functionality) and widely used for backend storage.
+This project uses Google Drive as an archival storage service for original high-quality images. It utilizes **OAuth2** with a refresh token to securely access your drive without manual login after setup.
 
 ### Steps to Setup
 
-1.  **Create Project & Service Account:**
+1.  **Create Project & Credentials:**
     - Go to [Google Cloud Console](https://console.cloud.google.com/).
-    - Create a new project (e.g., `Archive-Storage`).
-    - Navigate to **IAM & Admin > Service Accounts**.
-    - Click **+ CREATE SERVICE ACCOUNT**.
-    - Name it (e.g., `uploader`), grant it **Editor** role, and finish.
+    - Create a new project.
+    - Navigate to **APIs & Services > Library**, search for **Google Drive API** and enable it.
+    - Navigate to **APIs & Services > OAuth consent screen**.
+    - Choose **External**, fill in required app info, and add your email as a **Test User**.
+    - Navigate to **APIs & Services > Credentials**.
+    - Click **+ CREATE CREDENTIALS** > **OAuth client ID**.
+    - Select **Web application**. Add `http://localhost:3000/oauth2callback` to **Authorized redirect URIs**.
+    - Copy your **Client ID** and **Client Secret** to your `.env`.
 
-2.  **Enable Google Drive API:**
-    - In the console search bar, type "Google Drive API".
-    - Select it and click **Enable**.
+2.  **Generate Refresh Token:**
+    - Ensure your `.env` has `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+    - Run the token generator script:
+      ```bash
+      npx tsx src/scripts/get-google-token.ts
+      ```
+    - Follow the link in your terminal, authorize, and copy the **Code** from the URL bar (the failed redirect page).
+    - Paste the code back into the terminal to get your `GOOGLE_REFRESH_TOKEN`.
 
-3.  **Get Credentials (`.env`):**
-    - Go back to your Service Account list.
-    - Click the email of the service account you created.
-    - Go to the **KEYS** tab > **Add Key** > **Create new key** (JSON).
-    - A JSON file will download. Open it.
-    - Copy the `client_email` value to `GOOGLE_CLIENT_EMAIL` in your `.env`.
-    - Copy the `private_key` value (entire string including `-----BEGIN...`) to `GOOGLE_PRIVATE_KEY` in your `.env`.
-
-4.  **Create & Share Folder:**
-    - Go to your personal Google Drive.
-    - Create a new folder (e.g., `App Uploads`).
-    - Open the folder and copy the random string in the URL (e.g., `1aBc...` from `drive.google.com/.../folders/1aBc...`).
-    - Paste this string into `GOOGLE_DRIVE_FOLDER_ID` in your `.env`.
-    - **CRITICAL:** Click specific folder name > **Share** > Add the **Service Account Email** (from step 3) as an **Editor**.
-
-### .env Example
-
-```env
-GOOGLE_CLIENT_EMAIL="uploader@your-project.iam.gserviceaccount.com"
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEv... (one long line) ...\n-----END PRIVATE KEY-----\n"
-GOOGLE_DRIVE_FOLDER_ID="1aBcDeFgHiJkLmNoPqRsTuVwXyZ"
-```
-
-## ImageKit Configuration (Free Tier)
-
-This project uses ImageKit for real-time image optimization and delivery (CDN). It serves the highly optimized WebP versions of your images to the frontend for blazing-fast load times. The **Free Forever** plan is sufficient for personal projects.
-
-### Steps to Setup
-
-1.  **Register Account:**
-    - Sign up at [ImageKit.io](https://imagekit.io/).
-    - You will be on the free plan by default (20GB Bandwidth/month).
-
-2.  **Get Credentials (`.env`):**
-    - On the dashboard, go to **Developer Options** (in the sidebar).
-    - Copy the following values into your `.env`:
-      - `URL_ENDPOINT` -> `IMAGEKIT_URL_ENDPOINT`
-      - `PUBLIC_KEY` -> `IMAGEKIT_PUBLIC_KEY`
-      - `PRIVATE_KEY` -> `IMAGEKIT_PRIVATE_KEY`
+3.  **Root Folder Setup:**
+    - Create a folder in your Google Drive (e.g., `Archive Storage`).
+    - Copy the folder ID from the URL (the string after `folders/`).
+    - Save this as `GOOGLE_DRIVE_FOLDER_ID` in your `.env`.
 
 ### .env Example
 
 ```env
+# Google Drive (OAuth2)
+GOOGLE_CLIENT_ID="your-client-id.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="your-client-secret"
+GOOGLE_REDIRECT_URI="http://localhost:3000/oauth2callback"
+GOOGLE_REFRESH_TOKEN="1//your-refresh-token"
+GOOGLE_DRIVE_FOLDER_ID="your-folder-id"
+
+# ImageKit (CDN)
 IMAGEKIT_PUBLIC_KEY="public_..."
 IMAGEKIT_PRIVATE_KEY="private_..."
 IMAGEKIT_URL_ENDPOINT="https://ik.imagekit.io/your_id/"
