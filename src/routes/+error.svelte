@@ -1,5 +1,6 @@
 <script>
 	import { page } from '$app/stores';
+	import { AlertCircle, Home } from '@lucide/svelte';
 </script>
 
 <div
@@ -7,31 +8,17 @@
 >
 	<div class="max-w-md space-y-4">
 		<div class="mb-4 inline-flex items-center justify-center rounded-full bg-red-500/10 p-4">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="32"
-				height="32"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="text-red-500"
-			>
-				<circle cx="12" cy="12" r="10" />
-				<line x1="12" x2="12" y1="8" y2="12" />
-				<line x1="12" x2="12.01" y1="16" y2="16" />
-			</svg>
+			<AlertCircle class="h-8 w-8 text-red-500" />
 		</div>
 		<h1 class="text-4xl font-bold tracking-tight">{$page.status}</h1>
 		<p class="text-zinc-400">{$page.error?.message || 'Something went wrong.'}</p>
-		<div class="pt-4">
+		<div class="flex justify-center gap-3 pt-4">
 			<a
-				href="/dashboard"
-				class="inline-flex items-center rounded-lg bg-white px-4 py-2 font-medium text-black transition-colors hover:bg-zinc-200"
+				href="/"
+				class="inline-flex items-center gap-2 rounded-lg border border-zinc-700 px-4 py-2 font-medium text-white transition-colors hover:bg-zinc-800"
 			>
-				Return to Dashboard
+				<Home class="h-4 w-4" />
+				Home
 			</a>
 		</div>
 	</div>
