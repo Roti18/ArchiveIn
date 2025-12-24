@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "59f60376-b5f4-49ee-82dc-59c15ff0ed7b",
+  "id": "cbb69b85-c78a-4327-9521-ecbdf3a806af",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "academic_item": {
@@ -35,22 +35,29 @@
           "notNull": true,
           "autoincrement": false
         },
-        "hero_image": {
-          "name": "hero_image",
+        "hero_image_webp_url": {
+          "name": "hero_image_webp_url",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "link": {
-          "name": "link",
+        "hero_image_original_url": {
+          "name": "hero_image_original_url",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "link_platform": {
-          "name": "link_platform",
+        "hero_image_file_id": {
+          "name": "hero_image_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hero_image_google_id": {
+          "name": "hero_image_google_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -108,8 +115,29 @@
           "notNull": false,
           "autoincrement": false
         },
-        "image_url": {
-          "name": "image_url",
+        "image_webp_url": {
+          "name": "image_webp_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_original_url": {
+          "name": "image_original_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_file_id": {
+          "name": "image_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_google_id": {
+          "name": "image_google_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -117,6 +145,13 @@
         },
         "caption": {
           "name": "caption",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "width": {
+          "name": "width",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -135,6 +170,73 @@
         "academic_item_block_item_id_academic_item_id_fk": {
           "name": "academic_item_block_item_id_academic_item_id_fk",
           "tableFrom": "academic_item_block",
+          "tableTo": "academic_item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "academic_item_link": {
+      "name": "academic_item_link",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "platform": {
+          "name": "platform",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "academic_item_link_item_id_academic_item_id_fk": {
+          "name": "academic_item_link_item_id_academic_item_id_fk",
+          "tableFrom": "academic_item_link",
           "tableTo": "academic_item",
           "columnsFrom": [
             "item_id"
@@ -257,18 +359,53 @@
           "notNull": false,
           "autoincrement": false
         },
-        "image_url": {
-          "name": "image_url",
+        "image_webp_url": {
+          "name": "image_webp_url",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "year_taken": {
-          "name": "year_taken",
-          "type": "integer",
+        "image_original_url": {
+          "name": "image_original_url",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "imagekit_file_id": {
+          "name": "imagekit_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "google_drive_file_id": {
+          "name": "google_drive_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
@@ -381,6 +518,13 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "asprak": {
+          "name": "asprak",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -434,15 +578,29 @@
           "notNull": true,
           "autoincrement": false
         },
-        "link": {
-          "name": "link",
+        "hero_image_webp_url": {
+          "name": "hero_image_webp_url",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "link_platform": {
-          "name": "link_platform",
+        "hero_image_original_url": {
+          "name": "hero_image_original_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hero_image_file_id": {
+          "name": "hero_image_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hero_image_google_id": {
+          "name": "hero_image_google_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -500,8 +658,29 @@
           "notNull": false,
           "autoincrement": false
         },
-        "image_url": {
-          "name": "image_url",
+        "image_webp_url": {
+          "name": "image_webp_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_original_url": {
+          "name": "image_original_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_file_id": {
+          "name": "image_file_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "image_google_id": {
+          "name": "image_google_id",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -509,6 +688,13 @@
         },
         "caption": {
           "name": "caption",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "width": {
+          "name": "width",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -527,6 +713,73 @@
         "praktikum_item_block_item_id_praktikum_item_id_fk": {
           "name": "praktikum_item_block_item_id_praktikum_item_id_fk",
           "tableFrom": "praktikum_item_block",
+          "tableTo": "praktikum_item",
+          "columnsFrom": [
+            "item_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "praktikum_item_link": {
+      "name": "praktikum_item_link",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "item_id": {
+          "name": "item_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "platform": {
+          "name": "platform",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "praktikum_item_link_item_id_praktikum_item_id_fk": {
+          "name": "praktikum_item_link_item_id_praktikum_item_id_fk",
+          "tableFrom": "praktikum_item_link",
           "tableTo": "praktikum_item",
           "columnsFrom": [
             "item_id"
@@ -635,26 +888,62 @@
           "notNull": true,
           "autoincrement": false
         },
-        "username": {
-          "name": "username",
+        "email": {
+          "name": "email",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "password_hash": {
-          "name": "password_hash",
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "avatar": {
+          "name": "avatar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "google_id": {
+          "name": "google_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "role": {
+          "name": "role",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
+          "default": "'user'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
       "indexes": {
-        "user_username_unique": {
-          "name": "user_username_unique",
+        "user_email_unique": {
+          "name": "user_email_unique",
           "columns": [
-            "username"
+            "email"
+          ],
+          "isUnique": true
+        },
+        "user_google_id_unique": {
+          "name": "user_google_id_unique",
+          "columns": [
+            "google_id"
           ],
           "isUnique": true
         }
